@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/public/head')-%>
+</head>
+<body>
+    <section>
+        <div>
+            <form method="POST", action="/login">
+                <input type="text" name="username" placeholder="Username" id="username"><br>
+                <input type="password" name="logpass" placeholder="Password" id="logpass"><br>
+                <button type="submit">Login</button>    
+            </form>    
+        </div>    
+    </section>
+</body>
+</html>

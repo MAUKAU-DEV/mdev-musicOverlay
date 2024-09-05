@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/internal/head')-%>
+</head>
+<body>
+    <section>
+        <div>
+            <h1>Hello <%= username %></h1>
+
+            <form method="POST" action="/dashboard/updateTheme">
+                <select name="themes_list", id="themes_list">
+                    <% themes.forEach((element) => { %>
+                        <option value = "<%= element %>"><%= element %></option>
+                    <% }) %>
+                </select>
+                <button type="submit" name="savetheme" id="savetheme">Save</button>
+            </form>
+
+            <a href="/overlay" target="_blank"><button>Overlay</button></a>
+        </div>    
+    </section>
+</body>
+</html>
