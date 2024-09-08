@@ -1,40 +1,54 @@
 const express = require("express");
-const {getThemes} = require("./themes");
-const router = express.Router();
-var {currentTheme} = require("../app");
+const { getThemes } = require("./themes");
+const routesRouter = express.Router();
 
-router.get('/', (request, response) => {
-    if(request.session.isLogedIn == true){
-        response.render('pages/dashboard', {
-            username: request.session.username,
-            themes: getThemes(),
-        });
-        return;
-    }
+currentTheme = {};
 
-    response.render('pages/login');
-})
+currentTheme.set = function(newTheme){
+	currentTheme.name = newTheme;
+}
 
-router.get('/dashboard', (request, response) => {
-    if(request.session.isLogedIn==false){
-        response.redirect("/");
-        return;
-    }
+currentTheme.get = function(){
+	return currentTheme.name;
+}
 
-    response.render('pages/dashboard', {
-        username: request.session.username,
-        themes: getThemes(),
-    });
-})
+routesRouter.get("/", (request, response) => {
+	if (request.session.isLogedIn == true) {
+		response.render("pages/dashboard", {
+			username: request.session.username,
+			themes: getThemes(),
+			currentTheme: currentTheme.get(),
+		});
+		return;
+	}
 
-router.get('/404', (request, response)=> {
-    response.render("pages/404")
-})
+	response.render("pages/login");
+});
 
-router.get('/overlay', function(request, response) {
-    response.render('pages/overlay', {
-        activetheme: currentTheme,
-    })
-})
+routesRouter.get("/dashboard", (request, response) => {
+	if (request.session.isLogedIn == false) {
+		response.redirect("/");
+		return;
+	}
 
-module.exports = router
+	response.render("pages/dashboard", {
+		username: request.session.username,
+		themes: getThemes(),
+	});
+});
+
+routesRouter.get("/404", (request, response) => {
+	response.render("pages/404");
+});
+
+routesRouter.get("/overlay", function (request, response) {
+	response.render("pages/overlay", {
+		activetheme: currentTheme.get(),
+	});
+});
+
+
+module.exports = {
+	routesRouter,
+	currentTheme,
+};

@@ -4,11 +4,78 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OVERLAY</title>
-    <link rel="stylesheet" href="../themes/<%= activetheme %>">
+    <link type="text/css" rel="stylesheet" href="themes/<%= activetheme %>">
+    <script type="application/x-javascript" dataType: 'jsonp' src="js/jquery-3.7.1.min.js"></script>
+    
 </head>
 <body>
-        <div id="container">
-            <h2 id="songname">TEST</h2>
+    <div id="container">
+        <div id="imagebox">
+            <img id="songimage" src="image/defaulticon.jpg">
         </div>
+        <div id="infobox">
+            <h2 id="songname">[SONGNAME]</h2>
+            <h3 id="artist">[ARTIST]</h3>
+            <div id="progressbox">
+                <span id="songcurrenttime">0:00</span>
+                <div id="progressbar">
+                    <div id="progress"></div>
+                </div>
+                <span id="songendtime">60:60</span>
+            </div>
+        </div>
+        
+    </div>
+    <script>
+        const hostname = location.hostname;
+        const port = location.port;
+
+        const songImage = document.getElementById("songimage");
+        const songName = document.getElementById("songname");
+        const artist = document.getElementById("artist");
+
+        const songCurrentTime = document.getElementById("songcurrenttime");
+        const songEndTime = document.getElementById("songendtime");
+        const progresBar = document.getElementById("progressbar");
+        const progress = document.getElementById("progress");
+
+        function parseTime(milliseconds){
+            //Get hours from milliseconds
+            var hours = milliseconds / (1000*60*60);
+            var absoluteHours = Math.floor(hours);
+            var h = absoluteHours > 9 ? absoluteHours : '0' + absoluteHours;
+
+            //Get remainder from hours and convert to minutes
+            var minutes = (hours - absoluteHours) * 60;
+            var absoluteMinutes = Math.floor(minutes);
+            var m = absoluteMinutes > 9 ? absoluteMinutes : '0' +  absoluteMinutes;
+
+            //Get remainder from minutes and convert to seconds
+            var seconds = (minutes - absoluteMinutes) * 60;
+            var absoluteSeconds = Math.floor(seconds);
+            var s = absoluteSeconds > 9 ? absoluteSeconds : '0' + absoluteSeconds;
+
+
+            return m + ':' + s;
+        }
+
+
+        function updateOverlay(){
+            $.getJSON(`http://${hostname}:${port}/spotify/playback`, function(data){
+                console.log(data.item);
+
+                songName.innerHTML = data.item.album.name;
+                artist.innerHTML = data.item.artists[0].name;
+                songImage.src = data.item.album.images[0].url;
+                songCurrentTime.innerHTML = `${parseTime(data.progress_ms)} `;
+                songEndTime.innerHTML = parseTime(data.item.duration_ms)
+                var percentage = (data.progress_ms / data.item.duration_ms) * 100;
+                progress.style.width = `${percentage}%`;
+            })
+        }
+
+        setInterval(updateOverlay, 1000);
+
+    </script>
 </body>
 </html>
