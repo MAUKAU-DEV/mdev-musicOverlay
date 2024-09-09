@@ -63,11 +63,30 @@
             return m + ':' + s;
         }
 
+        function setUpMissingMusic(){
+            staticName.style.display = "block";
+            scrollName.style.display = "none";
+            songNameStatic.innerHTML = "[SONG NAME]";
+            songName.innerHTML = "";
+            artist.innerHTML = "[ARTIST]";
+            songImage.src = "image/defaulticon.jpg";
+            songCurrentTime.innerHTML = `00:00`;
+            songEndTime.innerHTML = "00:00";
+            progress.style.width = `10%`;
+        }
 
         function updateOverlay(){
             $.getJSON(`http://${hostname}:${port}/spotify/playback`, function(data){
-
-                var dataSongName = data.item.name;
+                console.log(data);
+                
+                var dataSongName = ""
+                
+                if(data == 204){
+                    setUpMissingMusic();
+                    return;
+                } else {
+                    dataSongName = data.item.name;
+                }
 
                 if(dataSongName.length >= 25){
                     staticName.style.display = "none";

@@ -218,6 +218,8 @@ spotifyRouter.get("/playback", function (req, res) {
 			mlog.log("API CALL:");
 			mlog.log(body);
 			res.json(body);
+		} else if (response.statusCode === 204){
+			res.json(response.statusCode);
 		} else {
 			mlog.warn(`Status code: ${response.statusCode}`);
 			res.json(response.statusCode);
