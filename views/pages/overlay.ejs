@@ -14,7 +14,8 @@
             <img id="songimage" src="image/defaulticon.jpg">
         </div>
         <div id="infobox">
-            <h2 id="songname">[SONGNAME]</h2>
+            <marquee id="scrollname" behavior="scroll" direction="left"><h2 id="songname">[SONGNAME]</h2></marquee>
+            <h2 class="staticname" id="songnamestatic">[SONGNAME]</h2>
             <h3 id="artist">[ARTIST]</h3>
             <div id="progressbox">
                 <span id="songcurrenttime">0:00</span>
@@ -30,8 +31,11 @@
         const hostname = location.hostname;
         const port = location.port;
 
-        const songImage = document.getElementById("songimage");
+        const scrollName = document.getElementById("scrollname");
+        const staticName = document.getElementsByClassName("staticname")[0];
+        const songNameStatic = document.getElementById("songnamestatic");
         const songName = document.getElementById("songname");
+        const songImage = document.getElementById("songimage");
         const artist = document.getElementById("artist");
 
         const songCurrentTime = document.getElementById("songcurrenttime");
@@ -62,9 +66,21 @@
 
         function updateOverlay(){
             $.getJSON(`http://${hostname}:${port}/spotify/playback`, function(data){
-                console.log(data.item);
 
-                songName.innerHTML = data.item.album.name;
+                var dataSongName = data.item.name;
+
+                if(dataSongName.length >= 25){
+                    staticName.style.display = "none";
+                    scrollName.style.display = "block";
+                    songName.innerHTML = dataSongName;
+                    songNameStatic.innerHTML = "";
+                } else {
+                    staticName.style.display = "block";
+                    scrollName.style.display = "none";
+                    songNameStatic.innerHTML = dataSongName;
+                    songName.innerHTML = "";
+                }
+
                 artist.innerHTML = data.item.artists[0].name;
                 songImage.src = data.item.album.images[0].url;
                 songCurrentTime.innerHTML = `${parseTime(data.progress_ms)} `;
