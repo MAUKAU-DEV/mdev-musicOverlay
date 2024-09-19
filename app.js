@@ -2,6 +2,7 @@ const express = require("express");
 const session = require("express-session");
 const filesystem = require("node:fs");
 const dotenv = require("dotenv");
+const path = require('path');
 const app = express();
 var {currentTheme} = require("./routes/routes");
 
@@ -17,6 +18,7 @@ app.use(
 dotenv.config();
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + '/public/'));
+app.use(express.static(path.join(__dirname, 'views')));
 const PORT = process.env.PORT || 8080;
 
 const loginRoute = require("./routes/login");
