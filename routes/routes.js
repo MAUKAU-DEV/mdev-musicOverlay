@@ -33,6 +33,7 @@ routesRouter.get("/dashboard", (request, response) => {
 
 	response.render("pages/dashboard", {
 		username: request.session.username,
+		currentTheme: currentTheme.get(),
 		themes: getThemes(),
 	});
 });
