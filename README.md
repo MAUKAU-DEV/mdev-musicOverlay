@@ -11,15 +11,13 @@ For the setup you need a spotify account and have nodejs installed.
 Tested with [Node 20.10]
 
 ### Spotify App setup
-Login to the developer dashboard and create a new app.
+Login to the [developer dashboard](https://developer.spotify.com/) and create a new app.
 Save the CLIENT_ID and CLIENT_SECRET in the .env file. 
 
-We reccomend changing the login username and password for security reasons.
+We reccomend changing the login username and password  in the .env file for security reasons.
 
-### Project Dependencies Setup
-Install the required packages with ``npm install``.
-Now you can start the overlay with ``node app.js``. 
-
+### Run MDEV-MusicOverlay
+Now after creating the .env file you just need to run the MDEV-MusicOverlay.exe.
 You can now open your browser at ``http://localhost:port/``.
 
 LogIn with the username and password set in the env file and click the button ``Login Spotify``. 
@@ -28,3 +26,14 @@ Once you logedin and gave the authorization the overlay should work.
 If you want to add themes from the community or create your own just add the css file in the ``/public/themes/`` folder. 
 
 If you have issues or bugs please create a issue on our repository.
+
+## Contribute
+If you want to contribute to this project. Just DONT.
+This code is too messy and I dont want to torture anyone with my mess.
+
+If you want to run and build the MDEV-MusicOverlay yourself you just need to install the dependencies with ``npm install``.
+And run the code with ``node app.js``.
+
+### Add you Theme to the list
+If you want to add a theme you made to the "official" theme list. 
+Just open a issue with the "Theme request" tag and link your repository. 
