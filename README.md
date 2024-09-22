@@ -4,7 +4,7 @@
 ## Themes Preview
 
 - Default.css<br>
-  ![Default.css](https://cdn.discordapp.com/attachments/1232090640389505064/1282502732476846122/image.png?ex=66df973f&is=66de45bf&hm=0cfec48cda81edd468762fb0893aa4d0fcddcabcc01320d493e9a7f257a12a00&)
+  ![Default.css](https://cdn.discordapp.com/attachments/1148349058038104106/1282477882257575968/image.png?ex=66f14c5a&is=66effada&hm=836ce4ef71376513b96ca5f21d9c7679ad233dd73edf732c122efa438d03cfe9&)
 - MAUKAU.css<br>
   ![MAUKAU.css](https://cdn.discordapp.com/attachments/1232090640389505064/1282502732996935740/image.png?ex=66df973f&is=66de45bf&hm=91105b24b28961b321e70f9d2a643644ec99fbc7b2f3bfc9650b6d0c663b6f6a&)
 - [ZenniverseLive](https://github.com/MAUKAU-DEV/MDEV-MusicOverlay-ZenniverseLive)<br>
